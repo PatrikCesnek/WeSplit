@@ -14,16 +14,28 @@ struct ContentView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Amount", value: $viewModel.checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                }
-                
-                
-                Section {
-
-                }
-                
-                Section {
+                    TextField(
+                        "Amount",
+                        value: $viewModel.checkAmount,
+                        format: .currency(
+                            code: Locale.current.currency?.identifier ?? "USD")
+                    )
+                    .keyboardType(.decimalPad)
                     
+                    Picker("Number of people", selection: $viewModel.numberOfPeople) {
+                        ForEach(2..<100, id: \.self) { people in
+                            Text("\(people) people")
+                        }
+                    }
+                    .pickerStyle(.navigationLink)
+                }
+                
+                Section {
+                    Text(
+                        viewModel.checkAmount,
+                        format: .currency(
+                            code: Locale.current.currency?.identifier ?? "USD")
+                    )
                 }
             }
             .navigationTitle("WeSplit")
