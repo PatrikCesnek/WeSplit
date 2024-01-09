@@ -12,5 +12,16 @@ class ViewModel: ObservableObject {
     @Published var numberOfPeople = 2
     @Published var tipPercentage = 20
     
+    var totalPerPerson: Double {
+        let peopleCount = Double(numberOfPeople)
+        let tipSelection = Double(tipPercentage)
+
+        let tipValue = checkAmount / 100 * tipSelection
+        let grandTotal = checkAmount + tipValue
+        let amountPerPerson = grandTotal / peopleCount
+        
+        return amountPerPerson
+    }
+    
     let tipPercentages = [10, 15, 20, 25, 0]
 }
