@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel = ViewModel()
+    @FocusState private var ammountIsFocused: Bool
     
     var body: some View {
         NavigationStack {
@@ -21,6 +22,7 @@ struct ContentView: View {
                             code: Locale.current.currency?.identifier ?? "USD")
                     )
                     .keyboardType(.decimalPad)
+                    .focused($ammountIsFocused)
                     
                     Picker("Number of people", selection: $viewModel.numberOfPeople) {
                         ForEach(2..<100, id: \.self) { people in
@@ -51,6 +53,13 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("WeSplit")
+            .toolbar {
+                if ammountIsFocused {
+                    Button("Done") {
+                        ammountIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
