@@ -23,5 +23,7 @@ class ViewModel: ObservableObject {
         return amountPerPerson
     }
     
-    let tipPercentages = [10, 15, 20, 25, 0]
+    var totalAmount: Double {
+        totalPerPerson * Double(numberOfPeople)
+    }
 }
